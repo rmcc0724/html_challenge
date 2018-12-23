@@ -20,8 +20,11 @@ document.querySelector('.btn-roll').addEventListener('click', function() {
         var dice2 = Math.floor(Math.random() * 6) + 1;
 
         //2. Display the result
-        twoSixes[0] = dice1;
+        twoSixes[0] === 6 ? twoSixes[2] = twoSixes[0] : twoSixes[1] === 6 ? twoSixes[2] = twoSixes[1] : twoSixes[2] = 0;
         twoSixes[1] = dice2;
+        twoSixes[0] = dice1;
+
+
         var diceDOM1 = document.querySelector('.dice1');
         var diceDOM2 = document.querySelector('.dice2');
         diceDOM1.style.display = 'block';
@@ -29,8 +32,9 @@ document.querySelector('.btn-roll').addEventListener('click', function() {
 
         diceDOM1.src = 'dice-' + dice1 + '.png';
         diceDOM2.src = 'dice-' + dice2 + '.png';
+        console.log(dice1 + " " + dice2);
         console.log(twoSixes);
-        console.log(checkTwoSixes());
+        //console.log(checkTwoSixes());
         //3. Update the round IF the rolles numner was NOT 1
 
 
@@ -80,13 +84,18 @@ document.querySelector('.btn-hold').addEventListener('click', function() {
 
 function nextPlayer() {
     //Next Player
+    twoSixes[0] = 0;
+    twoSixes[1] = 0;
     activePlayer === 0 ? activePlayer = 1 : activePlayer = 0;
     roundScore = 0;
     document.getElementById('current-0').textContent = '0';
     document.getElementById('current-1').textContent = '0';
     document.querySelector('.player-0-panel').classList.toggle('active');
     document.querySelector('.player-1-panel').classList.toggle('active');
-    document.querySelector('.dice').style.display = 'none';
+    document.querySelector('.dice1').style.display = 'none';
+    document.querySelector('.dice2').style.display = 'none';
+
+    
 }
 
 document.querySelector('.btn-new').addEventListener('click', init);
@@ -117,7 +126,7 @@ function init() {
 }
 
 function checkTwoSixes() {
-    return twoSixes[0] === 6 && twoSixes[1] === 6;
+    return (twoSixes[0] === 6 && twoSixes[2] === 6) || (twoSixes[1] === 6 && twoSixes[2] === 6);
 }
 
 function setWinValue() {
