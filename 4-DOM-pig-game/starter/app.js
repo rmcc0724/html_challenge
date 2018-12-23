@@ -16,14 +16,19 @@ document.querySelector('.btn-roll').addEventListener('click', function() {
 
         //1. Random Number
 
-        var dice = Math.floor(Math.random() * 6) + 1;
+        var dice1 = Math.floor(Math.random() * 6) + 1;
+        var dice2 = Math.floor(Math.random() * 6) + 1;
 
         //2. Display the result
-        twoSixes[1] = twoSixes[0];
-        twoSixes[0] = dice;
-        var diceDOM = document.querySelector('.dice');
-        diceDOM.style.display = 'block';
-        diceDOM.src = 'dice-' + dice + '.png';
+        twoSixes[0] = dice1;
+        twoSixes[1] = dice2;
+        var diceDOM1 = document.querySelector('.dice1');
+        var diceDOM2 = document.querySelector('.dice2');
+        diceDOM1.style.display = 'block';
+        diceDOM2.style.display = 'block';
+
+        diceDOM1.src = 'dice-' + dice1 + '.png';
+        diceDOM2.src = 'dice-' + dice2 + '.png';
         console.log(twoSixes);
         console.log(checkTwoSixes());
         //3. Update the round IF the rolles numner was NOT 1
@@ -34,9 +39,9 @@ document.querySelector('.btn-roll').addEventListener('click', function() {
             document.getElementById('score-' + activePlayer).textContent = scores[activePlayer];
             nextPlayer();
         }
-        else if (dice !== 1) {
+        else if (dice1 !== 1 && dice2 !== 1) {
             //Add score
-            roundScore += dice;
+            roundScore += dice1 + dice2;
             document.querySelector('#current-' + activePlayer).textContent = roundScore;
         }
         else {
@@ -94,7 +99,8 @@ function init() {
     activePlayer = 0;
     gameStarted = false;
     gamePlaying = true;
-    document.querySelector('.dice').style.display = 'none';
+    document.querySelector('.dice1').style.display = 'none';
+    document.querySelector('.dice2').style.display = 'none';
     document.getElementById('score-0').textContent = '0';
     document.getElementById('score-1').textContent = '0';
     document.getElementById('current-0').textContent = '0';
