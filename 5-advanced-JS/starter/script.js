@@ -342,57 +342,66 @@ c) correct answer (I would use a number for this)
 
 7. Suppose this code would be a plugin for other programmers to use in their code. So make sure that all your code is private and doesn't interfere with the other programmers code (Hint: we learned a special technique to do exactly that).
 */
-
-function Question(question, choices, answer) {
+(function() {
+    function Question(question, choices, answer) {
         this.question = question;
         this.choices = choices;
         this.answer = answer;
-}
+    }
 
-Question.prototype.displayQuestion = function() {
+    Question.prototype.displayQuestion = function() {
         console.log(this.question);
         for (var i = 0; i < this.choices.length; i++) {
-                console.log(i + ' ' + this.choices[i]);
+            console.log(i + ' ' + this.choices[i]);
         }
-};
+        console.log('Type exit to quit');
+    };
 
-Question.prototype.checkAnswer = function(ans) {
+    Question.prototype.checkAnswer = function(ans) {
         if (ans === parseInt(this.answer)) {
-                console.log("You've selected the correct answer.");
+            console.log("You've selected the correct answer.");
         }
         else {
-                console.log("You've selected the in-correct answer.");
+            console.log("You've selected the in-correct answer.");
         }
-};
+    };
 
-var q1 = new Question(
+    var q1 = new Question(
         'Is JS programming the best langiage in the world?', ['yes', 'no'],
         '0'
-);
+    );
 
-var q2 = new Question(
+    var q2 = new Question(
         'Am I a great progammer?', ['yes', 'no'],
         '0'
-);
+    );
 
-var q3 = new Question(
+    var q3 = new Question(
         'Do we like laziness?', ['yes', 'no'],
         '1'
-);
+    );
 
-var q4 = new Question(
+    var q4 = new Question(
         'Are you a quitter?', ['yes', 'no'],
         '1'
-);
+    );
 
-var questions = [q1, q2, q3, q4];
-var n = Math.floor(Math.random() * questions.length);
-questions[n].displayQuestion();
-var answer = parseInt(prompt('Please select the correct answer.'));
-questions[n].checkAnswer(answer);
+    var questions = [q1, q2, q3, q4];
 
 
+    function nextQuestion() {
+        var n = Math.floor(Math.random() * questions.length);
+        questions[n].displayQuestion();
+        var answer = prompt('Please select the correct answer.');
 
+        if (answer !== 'exit') {
+            questions[n].checkAnswer(parseInt(answer));
+            nextQuestion();
+        }
+
+    }
+    nextQuestion();
+})();
 /*
 --- Expert level ---
 
