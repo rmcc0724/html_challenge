@@ -342,60 +342,95 @@ c) correct answer (I would use a number for this)
 
 7. Suppose this code would be a plugin for other programmers to use in their code. So make sure that all your code is private and doesn't interfere with the other programmers code (Hint: we learned a special technique to do exactly that).
 */
+
 (function() {
-    function Question(question, choices, answer) {
+
+    //This is our constructor function for the Question object
+
+    function Question(question, answers, correct) {
         this.question = question;
-        this.choices = choices;
-        this.answer = answer;
+        this.answers = answers;
+        this.correct = correct;
     }
+
+    //This where we add our displayQuestion function to the protoType prop of the object
 
     Question.prototype.displayQuestion = function() {
         console.log(this.question);
-        for (var i = 0; i < this.choices.length; i++) {
-            console.log(i + ' ' + this.choices[i]);
+        for (var i = 0; i < this.answers.length; i++) {
+            console.log(i + ' ' + this.answers[i]);
         }
         console.log('Type exit to quit');
     };
 
-    Question.prototype.checkAnswer = function(ans) {
-        if (ans === parseInt(this.answer)) {
+    //This where we add our checkAnswer function to the protoType prop of the object
+
+    Question.prototype.checkAnswer = function(ans, callback) {
+        var sc;
+        console.log(ans + ' ' + this.correct);
+        if (ans === this.correct) {
             console.log("You've selected the correct answer.");
+            sc = callback(true);
         }
         else {
             console.log("You've selected the in-correct answer.");
+            sc = callback(false);
         }
+        this.displayScore(sc);
     };
 
+    //This where we add our displayScore function to the protoType prop of the object
+    Question.prototype.displayScore = function(score) {
+        console.log("Your score is " + score);
+    };
+
+    //Here we create new questions using our Question constructor with 3 arguments, the question, the choices and the answer
     var q1 = new Question(
         'Is JS programming the best langiage in the world?', ['yes', 'no'],
-        '0'
+        0
     );
 
     var q2 = new Question(
         'Am I a great progammer?', ['yes', 'no'],
-        '0'
+        0
     );
 
     var q3 = new Question(
         'Do we like laziness?', ['yes', 'no'],
-        '1'
+        1
     );
 
     var q4 = new Question(
         'Are you a quitter?', ['yes', 'no'],
-        '1'
+        1
     );
 
+    //Here we put all the questions into a single array
     var questions = [q1, q2, q3, q4];
 
+    //This is our score function that increases the score by one everytime a question is answered correctly stored in a variable that we pass through the checkAnswer function which is programmed to call score function and increase the score by one if correct.
+    function score() {
+        var sc = 0;
+        return function(correct) {
+            if (correct) {
+                sc++;
+            }
+            return sc;
 
+        };
+    }
+    
+    var keepScore = score();
+    
+    //This is our nextQuestion function that will repeat until 'exit' is typed into the input prompt
     function nextQuestion() {
         var n = Math.floor(Math.random() * questions.length);
         questions[n].displayQuestion();
         var answer = prompt('Please select the correct answer.');
 
         if (answer !== 'exit') {
-            questions[n].checkAnswer(parseInt(answer));
+            questions[n].checkAnswer(parseInt(answer), keepScore);
+
             nextQuestion();
         }
 
