@@ -1,5 +1,35 @@
 //Budget COntroller
-var budgetController = (function() {})();
+var budgetController = (function() {
+
+    //Create the data structures for the Expense and Income objects 
+    var Expense = function(id, description, value) {
+        this.id = id;
+        this.description = description;
+        this.value = value;
+    };
+
+    var Income = function(id, description, value) {
+        this.id = id;
+        this.description = description;
+        this.value = value;
+    };
+
+    var allExpenses = [];
+    var allIncomes = [];
+    var totalExpenses = 0;
+
+    var data = {
+        allItems: {
+            exp: [],
+            inc: []
+        },
+        totals: {
+            exp: 0,
+            inc: 0
+        }
+
+    };
+})();
 
 //UI Controller
 var UIController = (function() {
@@ -58,7 +88,7 @@ var controller = (function(budgetCtrl, UICtrl) {
 
         //5. Display the budget to the UI 
     };
-    
+
     //This calls the setupEventListeners function when the app is loaded
     return {
         init: function() {
