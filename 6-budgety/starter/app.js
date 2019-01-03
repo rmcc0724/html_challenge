@@ -14,10 +14,12 @@ var budgetController = (function() {
         this.value = value;
     };
 
+    //Create empty arrays for income, expenses and totals
     var allExpenses = [];
     var allIncomes = [];
     var totalExpenses = 0;
 
+    //This is where the data is stored for all exp, inc items and their totals
     var data = {
         allItems: {
             exp: [],
@@ -28,6 +30,35 @@ var budgetController = (function() {
             inc: 0
         }
 
+    };
+    //Return a public function that adds an item along with the args for type, desc, and value  
+    return {
+        addItem: function(type, desc, value) {
+            var newItem, ID; //Create a newItem and ID
+
+            //If the array is not empty, check the length, add one and set that to the ID variable, else if empty, ID gets 0
+            if (data.allItems[type].length > 0) {
+                ID = data.allItems[type][data.allItems[type].length - 1].id + 1; // Creates an ID for the new item based on the length of the array type that's chosen
+            }
+            else {
+                ID = 0;
+            }
+            //If the type is inc create an income object, exp creates an Expense object
+            if (type === 'inc') {
+                newItem = new Income(type, desc, value);
+            }
+            else if (type === 'exp') {
+                newItem = new Expense(type, desc, value);
+            }
+            //Push the newItem to the data.allItems[type] array
+            data.allItems[type].push(newItem);
+
+            //Return the newItem
+            return newItem;
+        },
+        testing: function() {
+            console.log(data);
+        }   
     };
 })();
 
@@ -72,16 +103,18 @@ var controller = (function(budgetCtrl, UICtrl) {
                 ctrlAddItem();
             }
         });
-        console.log('Event listeners.');
+       // console.log('Event listeners.');
     };
 
     //This takes the Input from the UI controller so it can be passed along to the budget controller
     var ctrlAddItem = function() {
+        var input, newItem;
+
         //1. Get the field input data
-        var input = UICtrl.getInput();
+        input = UICtrl.getInput();
 
         //2. Add the item to the budget controller
-
+        newItem = budgetCtrl.addItem(input.type, input.description, input.value);
         //3. Add the item to the UI
 
         //4. Calculate the budget
