@@ -13,6 +13,13 @@ var budgetController = (function() {
         this.description = description;
         this.value = value;
     };
+    var calculateTotal = function(type) {
+        var sum = 0;
+        data.allItems[type].forEach(function(curr) {
+            sum += curr.value;
+        });
+        data.totals[type] = sum;
+    };
 
     //Create empty arrays for income, expenses and totals
     var allExpenses = [];
@@ -28,7 +35,9 @@ var budgetController = (function() {
         totals: {
             exp: 0,
             inc: 0
-        }
+        },
+        budget: 0,
+        percentage: -1
 
     };
     //Return a public function that adds an item along with the args for type, desc, and value  
@@ -55,6 +64,27 @@ var budgetController = (function() {
 
             //Return the newItem
             return newItem;
+        },
+        calculateBudget: function() {
+
+            //calculate total income and expenses
+            calculateTotal('exp');
+            calculateTotal('inc');
+
+            //Calculate the budget: income - expenses
+            data.budget = data.totals.inc - data.totals.exp;
+
+            //Calculate the percentage of income
+            data.percentage = Math.round((data.totals.exp / data.totals.inc) * 100);
+
+        },
+        getBudget: function() {
+            return {
+                budget: data.budget,
+                totalInc: data.totals.inc,
+                totalExp: data.totals.exp,
+                percentage: data.percentage
+            };
         },
         testing: function() {
             console.log(data);
@@ -149,8 +179,13 @@ var controller = (function(budgetCtrl, UICtrl) {
     var updateBudget = function() {
 
         //1. Calculate the budget
+        budgetController.calculateBudget();
+
         //2. Return the budget
+        var budget = budgetController.getBudget();
+
         //3. Dsiplay the budget on the UI
+        console.log(budget);
 
     };
     var ctrlAddItem = function() {
@@ -170,9 +205,11 @@ var controller = (function(budgetCtrl, UICtrl) {
 
             //4. Clear the UI fields
             UICtrl.clearFields();
-            //4. Calculate the budget
+            //5. Calculate the budget
+        
+            updateBudget();
         }
-        //5. Display the budget to the UI 
+        //6. Display the budget to the UI 
     };
 
     //This calls the setupEventListeners function when the app is loaded
