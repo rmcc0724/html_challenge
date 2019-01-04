@@ -45,10 +45,10 @@ var budgetController = (function() {
             }
             //If the type is inc create an income object, exp creates an Expense object
             if (type === 'inc') {
-                newItem = new Income(type, desc, value);
+                newItem = new Income(ID, desc, value);
             }
             else if (type === 'exp') {
-                newItem = new Expense(type, desc, value);
+                newItem = new Expense(ID, desc, value);
             }
             //Push the newItem to the data.allItems[type] array
             data.allItems[type].push(newItem);
@@ -145,25 +145,33 @@ var controller = (function(budgetCtrl, UICtrl) {
     };
 
     //This takes the Input from the UI controller so it can be passed along to the budget controller
+
+    var updateBudget = function() {
+
+        //1. Calculate the budget
+        //2. Return the budget
+        //3. Dsiplay the budget on the UI
+
+    };
     var ctrlAddItem = function() {
         var input, newItem;
 
         //1. Get the field input data
         input = UICtrl.getInput();
-console.log(input);
+
         //2. Add the item to the budget controller
-
-            newItem = budgetCtrl.addItem(input.type, input.description, input.value);
-      
-
-        //3. Add the item to the UI
         if (input.value !== "" && input.description !== "") {
-        UICtrl.addListItem(newItem, input.type);
+            newItem = budgetCtrl.addItem(input.type, input.description, input.value);
 
-        //4. Clear the UI fields
-        UICtrl.clearFields();
-        //4. Calculate the budget
-}
+
+            //3. Add the item to the UI
+
+            UICtrl.addListItem(newItem, input.type);
+
+            //4. Clear the UI fields
+            UICtrl.clearFields();
+            //4. Calculate the budget
+        }
         //5. Display the budget to the UI 
     };
 
