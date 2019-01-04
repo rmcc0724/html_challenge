@@ -81,7 +81,7 @@ var UIController = (function() {
             return {
                 type: document.querySelector(DOMstrings.inputType).value, // will be inc or exp
                 description: document.querySelector(DOMstrings.inputDescription).value,
-                value: document.querySelector(DOMstrings.inputValue).value
+                value: parseFloat(document.querySelector(DOMstrings.inputValue).value)
             };
         },
         addListItem: function(obj, type) {
@@ -160,7 +160,7 @@ var controller = (function(budgetCtrl, UICtrl) {
         input = UICtrl.getInput();
 
         //2. Add the item to the budget controller
-        if (input.value !== "" && input.description !== "") {
+        if (input.description !== "" && !isNaN(input.value) && input.value > 0) {
             newItem = budgetCtrl.addItem(input.type, input.description, input.value);
 
 
