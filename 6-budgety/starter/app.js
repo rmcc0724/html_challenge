@@ -100,9 +100,25 @@ var UIController = (function() {
             newHtml = html.replace('%id%', obj.id);
             newHtml = newHtml.replace('%description%', obj.description);
             newHtml = newHtml.replace('%value%', obj.value);
-          
+
             // Insert HTML into the DOM
             document.querySelector(element).insertAdjacentHTML('beforeend', newHtml);
+        },
+        //Declare a public clear fields function that clears out the input fields of the DOM UI
+        clearFields: function() {
+            var fields, fieldsArr;
+
+            //Select the input and description fields
+            fields = document.querySelectorAll(DOMstrings.inputDescription + ', ' + DOMstrings.inputValue);
+
+            //Convert to an Array that we can use the forEach method
+            fieldsArr = Array.prototype.slice.call(fields);
+
+            //Sets all the values of the array to "" 
+            fieldsArr.forEach(function(current, index, array) {
+                current.value = "";
+            });
+            fieldsArr[0].focus();
         },
         //Make the DOMstrings object public so the main app controller has access to it
         getDOMstrings: function() {
@@ -134,15 +150,20 @@ var controller = (function(budgetCtrl, UICtrl) {
 
         //1. Get the field input data
         input = UICtrl.getInput();
-
+console.log(input);
         //2. Add the item to the budget controller
-        newItem = budgetCtrl.addItem(input.type, input.description, input.value);
-        
-        //3. Add the item to the UI
-        UICtrl.addListItem(newItem, input.type);
-        
-        //4. Calculate the budget
 
+            newItem = budgetCtrl.addItem(input.type, input.description, input.value);
+      
+
+        //3. Add the item to the UI
+        if (input.value !== "" && input.description !== "") {
+        UICtrl.addListItem(newItem, input.type);
+
+        //4. Clear the UI fields
+        UICtrl.clearFields();
+        //4. Calculate the budget
+}
         //5. Display the budget to the UI 
     };
 
