@@ -1,7 +1,7 @@
 //Budget COntroller
 var budgetController = (function() {
 
-    //Create the data structures for the Expense and Income objects 
+    //Create the data structures for the Expense, Income and Total objects 
     var Expense = function(id, description, value) {
         this.id = id;
         this.description = description;
@@ -40,8 +40,8 @@ var budgetController = (function() {
         percentage: -1
 
     };
-    //Return a public function that adds an item along with the args for type, desc, and value  
     return {
+            //Return a public function that adds an item along with the args for type, desc, and value  
         addItem: function(type, desc, value) {
             var newItem, ID; //Create a newItem and ID
 
@@ -65,6 +65,7 @@ var budgetController = (function() {
             //Return the newItem
             return newItem;
         },
+        //Calculate the budget based on the Income - expenses
         calculateBudget: function() {
 
             //calculate total income and expenses
@@ -82,6 +83,7 @@ var budgetController = (function() {
             }
 
         },
+        //Return the calculated budget
         getBudget: function() {
             return {
                 budget: data.budget,
