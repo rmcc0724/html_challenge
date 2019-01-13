@@ -163,11 +163,11 @@ var UIController = (function() {
             // Insert HTML into the DOM
             document.querySelector(element).insertAdjacentHTML('beforeend', newHtml);
         },
-        deleteListItem: function(selectorID){
+        deleteListItem: function(selectorID) {
             var el = document.getElementById(selectorID);
             el.parentNode.removeChild(el);
         },
-        
+
         //Declare a public clear fields function that clears out the input fields of the DOM UI
         clearFields: function() {
             var fields, fieldsArr;
@@ -240,28 +240,37 @@ var controller = (function(budgetCtrl, UICtrl) {
         //3. Dsiplay the budget on the UI
         UICtrl.displayBudget(budget);
     };
+
+    var updatePercentages = function() {
+        //1. Calculate percentages
+
+        //2. Read percentages from the budget controller
+
+        //3. Update the UI with the new percentages
+    };
+
     var ctrlAddItem = function() {
         var input, newItem;
 
         //1. Get the field input data
         input = UICtrl.getInput();
 
-        //2. Add the item to the budget controller
         if (input.description !== "" && !isNaN(input.value) && input.value > 0) {
+            //2. Add the item to the budget controller
             newItem = budgetCtrl.addItem(input.type, input.description, input.value);
 
 
             //3. Add the item to the UI
-
             UICtrl.addListItem(newItem, input.type);
 
             //4. Clear the UI fields
             UICtrl.clearFields();
-            //5. Calculate the budget
 
+            //5. Calculate the budget
             updateBudget();
         }
-        //6. Display the budget to the UI 
+        //6. Calculate and update percentages
+        updatePercentages();
     };
 
 
@@ -281,6 +290,9 @@ var controller = (function(budgetCtrl, UICtrl) {
 
             //3. Update and show the new budget
             updateBudget();
+
+            //4. Calculate and update percentages
+            updatePercentages();
         }
     };
 
