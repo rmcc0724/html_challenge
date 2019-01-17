@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Styling links</title>
+    <style type="text/css">
+
+     a::hover {
+      }
+      
+      a {
+       text-transform: uppercase;
+       text-decoration: none;
+       cursor: help;
+      } 
+      
+a::after {
+  content: "<";
+}
+
+a::before {
+  content: ">";
+}
+    </style>
+  </head>
+  <body>
+<button type="button" onclick='countingValleys(12, ["D", "D", "U", "U", "D", "D", "U", "D", "U", "U", "U", "D"])'>Click Me!</button>
+</body>
+        <script src="script.js"></script>
+</html>
