@@ -10,7 +10,7 @@ var bankController = (function() {
     };
     return {
         placeBet: function(bet) {
-            if (data.bank > 0) {
+            if (data.bank > 0 && bet <= data.bank) {
                 data.bet = bet;
                 data.bank -= data.bet;
                 console.log(data.bank);
@@ -18,9 +18,6 @@ var bankController = (function() {
             else {
                 console.log("You don't have enough money!");
             }
-        },
-        getBet: function() {
-            console.log(data.bet);
         },
         rollDice: function() {
             if (data.bet > 0) {
@@ -33,12 +30,9 @@ var bankController = (function() {
                 console.log("You need to place a bet first");
             }
         },
-        getDiceTotal: function() {
-            return data.dice.die1 + data.dice.die2;
-        },  
         resetDice: function() {
             data.dice.die1 = 0, data.dice.die2 = 0;
-            
+
         },
         checkWinner: function() {
             //Check to see if a bet was placed and if yes roll the dice if not alert the user to place a bet first
@@ -49,16 +43,18 @@ var bankController = (function() {
                         this.getDiceTotal() === 7 || this.getDiceTotal() === 11 ? this.playerWins() : this.setPoint(this.getDiceTotal());
                 }
                 else {
-                    this.getDiceTotal() === 7 ? this.playerLoses() : (this.setPoint(this.getDiceTotal()), console.log("Roll Again but dont crap out"));
+                    this.getDiceTotal() === 7 ? this.playerLoses() : this.getDiceTotal() === this.getPoint() ? this.playerWins() : (console.log("Roll Again but dont crap out. Try to hit " + this.getPoint()));
                 }
             }
-             console.log("The point is " + this.getPoint());
-             console.log("The dice total is " + this.getDiceTotal());
-             this.resetDice();
+            console.log("The dice total was " + this.getDiceTotal());
+            console.log("The point is " + this.getPoint());
+                    this.resetDice();
+            console.log("Now the dice total is " + this.getDiceTotal());
+
         },
         playerWins: function() {
             data.point = "Off";
-            data.bank += data.bet*2;
+            data.bank += data.bet * 2;
             console.log("Player Wins and has the amount of " + data.bank + " left.");
             console.log(data.bank);
             data.bet = 0;
@@ -74,8 +70,25 @@ var bankController = (function() {
         getPoint: function() {
             return data.point;
         },
+        getBet: function() {
+            return data.bet;
+        },
+        getDiceTotal: function() {
+            return data.dice.die1 + data.dice.die2;
+        },
         setPoint: function(point) {
             data.point = point;
+        },
+        resetGame: function() {
+            data = {
+        dice: {
+            die1: 0,
+            die2: 0,
+        },
+        bet: 0,
+        bank: 100,
+        point: "Off"
+    };
         }
     };
 })();
