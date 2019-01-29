@@ -12,7 +12,7 @@ var bankController = (function() {
         if (data.bank > 0 && bet <= data.bank) {
             data.bank -= bet;
             data.bet += bet;
-            console.log(data.bank);
+            console.log("Player has placed a bet of " + bet + " with a total bet of " + data.bet + " and bank of " + data.bank);
         }
         else {
             console.log("You don't have enough money!");
@@ -30,19 +30,24 @@ var bankController = (function() {
         }
     };
     var playerWins = () => {
-        data.point = "Off";
         data.bank += data.bet * 2;
-        console.log("Player Wins and has the amount of " + data.bank + " left.");
+        console.log("Player Wins because you rolled a " + getDiceTotal() + " when the point was " + getPoint() + "\nThe player has the amount of " + getBank() + " left.");
         console.log(data.bank);
         data.bet = 0;
+        setPoint("Off");
     };
     var playerLoses = () => {
-        data.point = "Off";
-        console.log("Player Loses and has the amount of " + data.bank + " left.");
+        console.log("Player Loses because you rolled a " + getDiceTotal() + " when the point was " + getPoint() + "\nThe player has the amount of " + getBank() + " left.");
         data.bet = 0;
+        setPoint("Off");
     };
     var setPoint = (point) => {
         data.point = point;
+        if (getPoint() === "Off") {
+            console.log("Your point is now set to " + getPoint() + " and you must roll a 7 or 11 to win, if you roll 2, 3, or 12 you lose, all else becomes your point.");
+        } else {
+            console.log("Your point is now set to " + getPoint() + " and you must roll that to win. If you roll a 7 prior to that you lose.");
+        }
     };
     var resetGame = () => {
         data = {
@@ -56,22 +61,11 @@ var bankController = (function() {
         };
         console.log("Game Reset");
     };
-    var resetDice = () => {
-        data.dice.die1 = 0, data.dice.die2 = 0;
-    };
-    var getDiceTotal = () => {
-        return parseInt(data.dice.die1) + parseInt(data.dice.die2);
-    };
-    var getBank = () => {
-        return data.bank;
-    };
-    var getBet = () => {
-        return data.bet;
-    };
-    var getPoint= () => {
-        return data.point;
-    };
-
+    var resetDice = () => (data.dice.die1 = 0, data.dice.die2 = 0);
+    var getDiceTotal = () => parseInt(data.dice.die1) + parseInt(data.dice.die2);
+    var getBank = () => data.bank;
+    var getBet = () => data.bet;
+    var getPoint = () => data.point;
     var checkWinner = () => {
         getBet() > 0 ? rollDice() : console.log("You must first place a bet!!");
         if (getBet() > 0) {
@@ -80,39 +74,21 @@ var bankController = (function() {
                     getDiceTotal() === 7 || getDiceTotal() === 11 ? playerWins() : setPoint(getDiceTotal());
             }
             else {
-                getDiceTotal() === 7 ? playerLoses() : getDiceTotal() === getPoint() ? playerWins() : (console.log("Roll Again but dont crap out. Try to hit " + getPoint()));
+                getDiceTotal() === 7 ? playerLoses() : getDiceTotal() === getPoint() ? playerWins() : (console.log("Roll Again but dont crap out. You rolled a " + getDiceTotal() + "\nTry to hit " + getPoint()));
+
             }
         }
-        console.log("The dice total was " + getDiceTotal());
-        console.log("The point is " + getPoint());
         resetDice();
-        console.log("Now the dice total is " + getDiceTotal());
     };
     return {
-        resetGamePublic: function() {
-            return resetGame();
-        },
-        placeBetPublic: function(bet) {
-            return placeBet(bet);
-        },
-        rollDicePublic: function(bet) {
-            return rollDice();
-        },
-        checkWinnerPublic: function() {
-            return checkWinner();
-        },
-        getBankPublic: function() {
-            return getBank();
-        },
-        getBetPublic: function() {
-            return getBet();
-        },
-        getPointPublic: function() {
-            return getPoint();
-        },
-        getDiceTotalPublic: function() {
-            return getDiceTotal();
-        }
+        resetGamePublic: () => resetGame(),
+        placeBetPublic: (bet) => placeBet(bet),
+        rollDicePublic: (bet) => rollDice(),
+        checkWinnerPublic: () => checkWinner(),
+        getBankPublic: () => getBank(),
+        getBetPublic: () => getBet(),
+        getPointPublic: () => getPoint(),
+        getDiceTotalPublic: () => getDiceTotal(),
     };
 })();
 
@@ -134,9 +110,8 @@ var UIController = (function() {
         textArea: '.text__area'
     };
     return {
-        getDOMstrings: function() {
-            return DOMstrings;
-        }
+        getDOMstrings: () => DOMstrings
+
     };
 })();
 
@@ -152,6 +127,7 @@ var controller = (function(bankCtrl, UICtrl) {
         document.querySelector(DOM.container).addEventListener('click', ctrlReset);
 
     };
+    var ctrlBet5
 
     return {
         init: function() {
