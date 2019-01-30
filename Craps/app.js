@@ -1,8 +1,10 @@
+//Data Controller
+
 var bankController = (function() {
     let data = {
         dice: {
-            die1: 0,
-            die2: 0,
+            die1: 5,
+            die2: 5,
         },
         bet: 0,
         bank: 100,
@@ -13,18 +15,16 @@ var bankController = (function() {
         if (data.bank > 0 && 5 <= data.bank) {
             data.bank -= 5;
             data.bet += 5;
-            console.log("Player has placed a bet of 5$ with a total bet of " + getBet() + " and bank of " + getBank());
+            sendMessage("Player has placed a bet of 5$ with a total bet of " + getBet() + " and bank of " + getBank());
         }
         else {
-            console.log("You don't have enough money!");
+            sendMessage("You don't have enough money!");
         }
     };
     let rollDice = () => {
         if (data.bet > 0) {
             data.dice.die1 = Math.floor(Math.random() * 6) + 1;
             data.dice.die2 = Math.floor(Math.random() * 6) + 1;
-            console.log(data.dice.die1);
-            console.log(data.dice.die2);
         }
         else {
             console.log("You need to place a bet first");
@@ -32,59 +32,77 @@ var bankController = (function() {
     };
     let playerWins = () => {
         data.bank += data.bet * 2;
-        console.log("Player Wins because you rolled a " + getDiceTotal() + " when the point was " + getPoint() + "\nThe player has the amount of " + getBank() + " left.");
-        console.log(data.bank);
+        if (getDiceTotal === 7 || getDiceTotal === 11) {
+            sendMessage("Player Wins because you rolled " + getDiceTotal() + " on the first roll when the point was off. \nThe player has the amount of " + getBank() + " left.");
+        }
+        else {
+            sendMessage("Player Wins because you rolled " + getDiceTotal() + " prior to crapping out by rolling 7. \nThe player has the amount of " + getBank() + " left.");
+
+        }
         data.bet = 0;
         setPoint("Off");
     };
     let playerLoses = () => {
-        console.log("Player Loses because you rolled a " + getDiceTotal() + " when the point was " + getPoint() + "\nThe player has the amount of " + getBank() + " left.");
+        if (getDiceTotal === 2 || getDiceTotal === 3 || getDiceTotal === 12 ) {
+            sendMessage("Player Loses because you rolled " + getDiceTotal() + " on the first roll when the point was off. \nThe player has the amount of " + getBank() + " left.");
+        }
+        else {
+            sendMessage("Player Loses because you rolled " + getDiceTotal() + " prior to rolling " + getPoint() + "\nThe player has the amount of " + getBank() + " left.");
+
+        }
         data.bet = 0;
         setPoint("Off");
     };
     let setPoint = (point) => {
         data.point = point;
         if (getPoint() === "Off") {
-            console.log("Your point is now set to " + getPoint() + " and you must roll a 7 or 11 to win, if you roll 2, 3, or 12 you lose, all else becomes your point.");
+            //sendMessage("Your point is now set to " + getPoint() + " and you must roll a 7 or 11 to win, if you roll 2, 3, or 12 you lose, all else becomes your point.");
         }
         else {
-            console.log("Your point is now set to " + getPoint() + " and you must roll that to win. If you roll a 7 prior to that you lose.");
+            //sendMessage("Your point is now set to " + getPoint() + " and you must roll that to win. If you roll a 7 prior to that you lose.");
         }
     };
     let resetGame = () => {
         data = {
             dice: {
-                die1: 0,
-                die2: 0,
+                die1: 5,
+                die2: 5,
             },
             bet: 0,
             bank: 100,
             point: "Off"
         };
         setPoint("Off");
-        console.log("Game Reset");
+        sendMessage("Game Reset");
     };
-    let resetDice = () => (data.dice.die1 = 0, data.dice.die2 = 0);
+
+    //   let resetDice = () => (data.dice.die1 = 0, data.dice.die2 = 0);
+    let getDie1 = () => (data.dice.die1);
+    let getDie2 = () => (data.dice.die2);
     let getDiceTotal = () => parseInt(data.dice.die1) + parseInt(data.dice.die2);
     let getBank = () => data.bank;
     let getBet = () => data.bet;
     let getPoint = () => data.point;
+    let sendMessage = (message) => this.message = message;
+    let getMessage = () => this.message;
     let checkWinner = () => {
-        getBet() > 0 ? rollDice() : console.log("You must first place a bet!!");
+        getBet() > 0 ? rollDice() : sendMessage("You must first place a bet!!");
         if (getBet() > 0) {
             if (getPoint() === "Off") {
                 getDiceTotal() === 2 || getDiceTotal() === 3 || getDiceTotal() === 12 ? playerLoses() :
-                    getDiceTotal() === 7 || getDiceTotal() === 11 ? playerWins() : setPoint(getDiceTotal());
+                    getDiceTotal() === 7 || getDiceTotal() === 11 ? playerWins() : (setPoint(getDiceTotal()), sendMessage("Your point is now set to " + getPoint() + " and you must roll that to win. \nIf you roll a 7 prior to that you lose."));
             }
             else {
-                getDiceTotal() === 7 ? playerLoses() : getDiceTotal() === getPoint() ? playerWins() : (console.log("Roll Again but dont crap out. You rolled a " + getDiceTotal() + "\nTry to hit " + getPoint()));
+                getDiceTotal() === 7 ? playerLoses() : getDiceTotal() === getPoint() ? playerWins() : (sendMessage("Roll Again but dont crap out. You rolled a " + getDiceTotal() + "\nTry to hit " + getPoint()));
 
             }
         }
-        resetDice();
+        //      resetDice();
     };
     return {
         resetGamePublic: () => resetGame(),
+        getPublicDie1: () => getDie1(),
+        getPublicDie2: () => getDie2(),
         placeBetPublic: () => placeBet(),
         rollDicePublic: (bet) => rollDice(),
         checkWinnerPublic: () => checkWinner(),
@@ -92,6 +110,7 @@ var bankController = (function() {
         getBetPublic: () => getBet(),
         getPointPublic: () => getPoint(),
         getDiceTotalPublic: () => getDiceTotal(),
+        getPublicMessage: () => getMessage()
     };
 })();
 
@@ -118,11 +137,15 @@ let UIController = (function() {
         document.getElementById("point").innerHTML = point;
     };
 
+    var displayMessage = (message) => {
+        document.getElementById("message").value = message;
+    };
+
     var updateDice = (die1, die2) => {
         document.getElementById("die-1-img").src = "dice-" + die1 + ".png";
         document.getElementById("die-2-img").src = "dice-" + die2 + ".png";
-        document.getElementById("score-1").src = die1;
-        document.getElementById("score-2").src = die2;
+        document.getElementById("score-1").innerHTML = die1;
+        document.getElementById("score-2").innerHTML = die2;
     };
 
 
@@ -130,17 +153,17 @@ let UIController = (function() {
         getDOMstrings: () => DOMstrings,
         placeBetPublic: (bet) => placeBet(bet),
         updateBankPublic: (bank) => updateBank(bank),
-        updatePointPublic: (point) => updatePoint(point)
+        updatePointPublic: (point) => updatePoint(point),
+        updatePublicDice: (die1, die2) => updateDice(die1, die2),
+        displayPublicMessage: (message) => displayMessage(message)
     };
 })();
 
 let controller = (function(bankCtrl, UICtrl) {
-
     let setupEventListeners = function() {
         var DOM = UICtrl.getDOMstrings();
-
         document.querySelector(DOM.bet5Btn).addEventListener('click', ctrlBet5);
-        //     document.querySelector(DOM.rollDiceBtn).addEventListener('click', ctrlRollDice);
+        document.querySelector(DOM.btnRoll).addEventListener('click', ctrlRollDice);
         document.querySelector(DOM.btnNew).addEventListener('click', ctrlReset);
     };
     let ctrlBet5 = () => {
@@ -152,27 +175,52 @@ let controller = (function(bankCtrl, UICtrl) {
 
         //3. Update the Bank UI controller to reflect the total
         UICtrl.updateBankPublic(bankCtrl.getBankPublic());
+
+        UICtrl.displayPublicMessage(bankCtrl.getPublicMessage());
     };
 
     let ctrlReset = () => {
         //1. When the new game button is clicked we call the resetGamePublic function
         bankCtrl.resetGamePublic();
 
-        //2. We update the UI controller using the public getBet function
+        //2. We update Bet UI controller using the public getBet function
         UICtrl.placeBetPublic(bankCtrl.getBetPublic());
 
         //3. Update the Bank UI controller to reset the bank to 100
-        UICtrl.updateBankPublic(bankController.getBankPublic());
-        
-        //4. Update the Point UI controller to "Off"
-        UICtrl.updateBankPublic(bankController.getBankPublic());
-    };
+        UICtrl.updateBankPublic(bankCtrl.getBankPublic());
 
+        //4. Update the Point UI controller to "Off"
+        UICtrl.updatePointPublic(bankCtrl.getPointPublic());
+
+        UICtrl.displayPublicMessage(bankCtrl.getPublicMessage());
+
+    };
+    
+    //Main App Controller
+
+    let ctrlRollDice = () => {
+
+        //1. Here we run through the game
+        bankCtrl.checkWinnerPublic();
+        UICtrl.displayPublicMessage(bankCtrl.getPublicMessage());
+
+
+        console.log("Update Bet UI");
+        //2. We update Bet UI controller using the public getBet function
+        UICtrl.placeBetPublic(bankCtrl.getBetPublic());
+
+        //3. Update the Bank UI controller to get the bank value for the UI
+        UICtrl.updateBankPublic(bankCtrl.getBankPublic());
+
+        //4. Update the Point UI controller to the point value
+        UICtrl.updatePointPublic(bankCtrl.getPointPublic());
+
+        //5. Update the Dice Images and Values
+        UICtrl.updatePublicDice(bankCtrl.getPublicDie1(), bankCtrl.getPublicDie2());
+    };
     return {
         init: () => (console.log('Application has started.'),
             setupEventListeners()),
     };
-
 })(bankController, UIController);
-
 controller.init();
