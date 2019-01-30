@@ -7,7 +7,7 @@ var bankController = (function() {
         bet: 0,
         bank: 100,
         point: "Off",
-        message : ""
+        message: ""
     };
     let placeBet = () => {
         if (data.bank > 0 && 5 <= data.bank) {
@@ -117,14 +117,14 @@ let UIController = (function() {
     var updatePoint = (point) => {
         document.getElementById("point").innerHTML = point;
     };
-    
+
     var updateDice = (die1, die2) => {
         document.getElementById("die-1-img").src = "dice-" + die1 + ".png";
-        document.getElementById("die-2-img").src = "dice-" + die2 + ".png"; 
+        document.getElementById("die-2-img").src = "dice-" + die2 + ".png";
         document.getElementById("score-1").src = die1;
         document.getElementById("score-2").src = die2;
     };
-    
+
 
     return {
         getDOMstrings: () => DOMstrings,
@@ -140,8 +140,8 @@ let controller = (function(bankCtrl, UICtrl) {
         var DOM = UICtrl.getDOMstrings();
 
         document.querySelector(DOM.bet5Btn).addEventListener('click', ctrlBet5);
-   //     document.querySelector(DOM.rollDiceBtn).addEventListener('click', ctrlRollDice);
-   //     document.querySelector(DOM.resetBtn).addEventListener('click', ctrlReset);
+        //     document.querySelector(DOM.rollDiceBtn).addEventListener('click', ctrlRollDice);
+        document.querySelector(DOM.btnNew).addEventListener('click', ctrlReset);
     };
     let ctrlBet5 = () => {
         //1. When the bet 5 button is clicked we call the public placeBet function
@@ -149,15 +149,28 @@ let controller = (function(bankCtrl, UICtrl) {
 
         //2. We update the UI controller using the public getBet function
         UICtrl.placeBetPublic(bankCtrl.getBetPublic());
-        
-        //3. Update the Bank UI controller to reflect the total
-        UICtrl.updateBankPublic(bankController.getBankPublic());
 
+        //3. Update the Bank UI controller to reflect the total
+        UICtrl.updateBankPublic(bankCtrl.getBankPublic());
+    };
+
+    let ctrlReset = () => {
+        //1. When the new game button is clicked we call the resetGamePublic function
+        bankCtrl.resetGamePublic();
+
+        //2. We update the UI controller using the public getBet function
+        UICtrl.placeBetPublic(bankCtrl.getBetPublic());
+
+        //3. Update the Bank UI controller to reset the bank to 100
+        UICtrl.updateBankPublic(bankController.getBankPublic());
+        
+        //4. Update the Point UI controller to "Off"
+        UICtrl.updateBankPublic(bankController.getBankPublic());
     };
 
     return {
-        init: () => (console.log('Application has started.'), 
-        setupEventListeners()),
+        init: () => (console.log('Application has started.'),
+            setupEventListeners()),
     };
 
 })(bankController, UIController);
