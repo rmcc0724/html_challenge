@@ -15,7 +15,7 @@ var bankController = (function() {
         if (data.bank > 0 && 5 <= data.bank) {
             data.bank -= 5;
             data.bet += 5;
-            sendMessage("Player has placed a bet of 5$ with a total bet of " + getBet() + " and bank of " + getBank());
+            sendMessage(`Player has placed a bet of 5$ with a total bet of ${getBet()} and bank of ${getBank()}`);
         }
         else {
             sendMessage("You don't have enough money!");
@@ -33,21 +33,21 @@ var bankController = (function() {
     let playerWins = () => {
         data.bank += data.bet * 2;
         if (getDiceTotal === 7 || getDiceTotal === 11) {
-            sendMessage("Player Wins because you rolled " + getDiceTotal() + " on the first roll when the point was off. \nThe player has the amount of " + getBank() + " left.");
+            sendMessage(`Player Wins because you rolled ${getDiceTotal()} on the first roll when the point was off. \nThe player has the amount of ${getBank()} left.`);
         }
         else {
-            sendMessage("Player Wins because you rolled " + getDiceTotal() + " prior to crapping out by rolling 7. \nThe player has the amount of " + getBank() + " left.");
+            sendMessage(`Player Wins because you rolled ${getDiceTotal()} prior to crapping out by rolling 7. \nThe player has the amount of ${getBank()} left.`);
 
         }
         data.bet = 0;
         setPoint("Off");
     };
     let playerLoses = () => {
-        if (getDiceTotal === 2 || getDiceTotal === 3 || getDiceTotal === 12 ) {
-            sendMessage("Player Loses because you rolled " + getDiceTotal() + " on the first roll when the point was off. \nThe player has the amount of " + getBank() + " left.");
+        if (getDiceTotal() === 2 || getDiceTotal() === 3 || getDiceTotal() === 12 ) {
+            sendMessage(`Player Loses because you rolled ${getDiceTotal()} on the first roll when the point was off. \nThe player has the amount of ${getBank()} left.`);
         }
         else {
-            sendMessage("Player Loses because you rolled " + getDiceTotal() + " prior to rolling " + getPoint() + "\nThe player has the amount of " + getBank() + " left.");
+            sendMessage(`Player Loses because you rolled ${getDiceTotal()} prior to rolling ${getDiceTotal()} \nThe player has the amount of ${getBank()} left. `);
 
         }
         data.bet = 0;
@@ -56,10 +56,8 @@ var bankController = (function() {
     let setPoint = (point) => {
         data.point = point;
         if (getPoint() === "Off") {
-            //sendMessage("Your point is now set to " + getPoint() + " and you must roll a 7 or 11 to win, if you roll 2, 3, or 12 you lose, all else becomes your point.");
         }
         else {
-            //sendMessage("Your point is now set to " + getPoint() + " and you must roll that to win. If you roll a 7 prior to that you lose.");
         }
     };
     let resetGame = () => {
@@ -76,7 +74,6 @@ var bankController = (function() {
         sendMessage("Game Reset");
     };
 
-    //   let resetDice = () => (data.dice.die1 = 0, data.dice.die2 = 0);
     let getDie1 = () => (data.dice.die1);
     let getDie2 = () => (data.dice.die2);
     let getDiceTotal = () => parseInt(data.dice.die1) + parseInt(data.dice.die2);
@@ -90,14 +87,13 @@ var bankController = (function() {
         if (getBet() > 0) {
             if (getPoint() === "Off") {
                 getDiceTotal() === 2 || getDiceTotal() === 3 || getDiceTotal() === 12 ? playerLoses() :
-                    getDiceTotal() === 7 || getDiceTotal() === 11 ? playerWins() : (setPoint(getDiceTotal()), sendMessage("Your point is now set to " + getPoint() + " and you must roll that to win. \nIf you roll a 7 prior to that you lose."));
+                    getDiceTotal() === 7 || getDiceTotal() === 11 ? playerWins() : (setPoint(getDiceTotal()), sendMessage(`Your point is now set to ${getPoint()} and you must roll that to win. \nIf you roll a 7 prior to that you lose.`));
             }
             else {
-                getDiceTotal() === 7 ? playerLoses() : getDiceTotal() === getPoint() ? playerWins() : (sendMessage("Roll Again but dont crap out. You rolled a " + getDiceTotal() + "\nTry to hit " + getPoint()));
+                getDiceTotal() === 7 ? playerLoses() : getDiceTotal() === getPoint() ? playerWins() : (sendMessage(`Roll Again but dont crap out. You rolled a ${getDiceTotal()} \nTry to hit ${getPoint()}`));
 
             }
         }
-        //      resetDice();
     };
     return {
         resetGamePublic: () => resetGame(),
