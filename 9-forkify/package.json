@@ -4,7 +4,8 @@
   "description": "forkify project",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "webpack --mode development",
+    "build": "webpack --mode production"
   },
   "author": "Reid McCulloch",
   "license": "ISC",
@@ -13,8 +14,7 @@
     "babel-loader": "^7.1.5",
     "babel-preset-env": "^1.7.0",
     "webpack": "^4.29.5",
-    "webpack-cli": "^2.1.5",
-    "webpack-dev-server": "^3.1.14"
+    "webpack-cli": "^3.2.3"
   },
   "dependencies": {}
 }
