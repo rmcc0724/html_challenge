@@ -4,36 +4,80 @@
 
 /************************************************/
 
-header {margin: .5em 0;}
+/*    Sets a the top and bottom margin of the entire header  */
+
+header {
+    margin: .5em 0;
+}
+
+/*    Display the header div container as an inline-block*/
 
 header div {
     display: inline-block;
 }
 
-div ul li {
-    display: inline;
-}
-
-nav div:nth-child(2) {
-    float: right;
-}
-
-nav div:nth-child(2) ul {
-    padding: 0 40px 0 0;
-}
+/*    Sets the nav container div to 100% so it spans across the screen*/
 
 .nav-container {
     width: 100%;
 }
 
+/*     Float items in the left part of the nav to the left */
+
+nav div:nth-child(1) {
+    margin-left: 25px;
+}
+
+/*     Float items in the right part of the nav to the right */
+
+nav div:nth-child(2) {
+    margin-right: 40px;
+    float: right;
+}
+
+
+/*    Set the padding of ul element of the left part of the nav to zero     */
+
+nav div:first-child ul {
+    padding: 0;
+    margin-top: 20px;
+}
+
+/*    Set the border radias of the first initial icon to 100% so it's a circle     */
+
+nav div:nth-child(2) ul li:nth-child(5) img {
+    border-radius: 100%;
+}
+
+/*    Display the list items in the nav as inline:    */
+
+div ul li {
+    display: inline;
+}
+
+
+/*    Set the margins and padding for the li elements of the left part of the nav */
+
+nav div:nth-child(2) ul li {
+    margin-left: 10px;
+    padding: 10px;
+}
+
+/*    Set the margins and padding for the li elements of the right part of the nav */
+
+nav div:nth-child(1) ul li {
+    margin-right: 10px;
+    padding: 10px;
+}
 
 /************************************************/
 
 /*    Body:       */
 
 /************************************************/
+
 body {
-    font-family: arial,sans-serif;
+    font-family: arial, sans-serif;
 }
 
 /************************************************/
