@@ -21,6 +21,7 @@
         }
     },
     "run": {
+        "@runner": "Node.js",
         "configs": {
             "@inited": "true",
             "json()": {}
