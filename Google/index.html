@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 
-<body>
+<body class="body-for-sticky">
     <header>
         <div class="nav-container">
             <nav>
@@ -46,33 +46,23 @@
                 </div>
             </div>
         </div>
-         <div class="section">
-             <div class="button-section-container">
-                 <div>Google Search</div>
-                 <div>I'm feeling lucky</div>
-             </div>
+        <div class="section">
+            <div class="button-section-container">
+                <a href="http://www.google.com">
+                    <div>Google Search</div>
+                </a>
+                <a href="https://www.google.com/search?ei=u4R4XL7CIpTb-gT5tqqQBA&q=i%27m+feeling+lucky&oq=im+ffeeling+lucky&gs_l=psy-ab.12...0.0..7922...0.0..0.0.0.......0......gws-wiz.2fEOyjNAQY8">
+                    <div>I'm feeling lucky</div>
+                </a>
+            </div>
         </div>
         </div>
     </section>
-    <footer>
-        <!--<div class="section">-->
-        <!--    <div class="footer-container">-->
-        <!--        <div>-->
-        <!--            <ul>-->
-        <!--                <li>Advertising</li>-->
-        <!--                <li>Business</li>-->
-        <!--            </ul>-->
-        <!--        </div>-->
-        <!--        <div>-->
-        <!--            <ul>-->
-        <!--                <li>Privacy</li>-->
-        <!--                <li>Terms</li>-->
-        <!--                <li>Settings</li>-->
-        <!--            </ul>-->
-        <!--        </div>-->
-        <!--    </div>-->
-        <!--</div>-->
-    </footer>
+    <div class="section">
+        <div class="footer sticky-footer">
+            This footer will always be positioned at the bottom of the page, but <strong>not fixed</strong>.
+        </div>
+    </div>
 </body>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
