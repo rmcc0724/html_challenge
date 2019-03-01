@@ -92,7 +92,7 @@ body {
 
 .input-section-container {
     text-align: center;
-    margin-top: 55px;
+    margin-top: 45px;
 }
 
 /*    This is for each row of content    */
@@ -132,6 +132,18 @@ input:focus {
 outline: none;    
 }
 
+.button-section-container {
+    text-align: center;
+    margin-top: 35px;
+}
+
+.button-section-container div {
+    padding: 13px 12px;
+    border-width: .1em;
+    background-color: #eeeeee;
+    margin: 0px 5px;
+    display: inline;
+}
 /************************************************/
 
 /*    Footer:       */
