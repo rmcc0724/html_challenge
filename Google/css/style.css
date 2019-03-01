@@ -80,6 +80,58 @@ body {
     font-family: arial, sans-serif;
 }
 
+/*    Set the margin top for the logo container */
+
+.logo-section-container {
+    margin-top: 135px;
+    text-align: center;
+}
+
+
+/*    center the search field and give it a margin top     */
+
+.input-section-container {
+    text-align: center;
+    margin-top: 55px;
+}
+
+/*    This is for each row of content    */
+
+.section {
+    width: 100%;
+}
+
+/*    Set the height and width of the input field     */
+
+input[type="text"] {
+    width: 584px;
+    height: 37px;
+    font: 16px arial, sans-serif;
+    padding: 0 10px;
+    border-style: none;
+}
+
+/*    Set the display of the section container to inline      */
+
+.input-section-container div {
+    display: inline;
+}
+
+
+.wrapper {
+    border-style: solid;
+    padding: 13px 4px;
+    border-width: 1pt;
+}
+
+.wrapper div:nth-child(2) {
+    margin-right: 14px;
+}
+
+input:focus {
+outline: none;    
+}
+
 /************************************************/
 
 /*    Footer:       */
