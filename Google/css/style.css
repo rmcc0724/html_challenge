@@ -12,7 +12,8 @@ header {
 
 /*    Display the header div container as an inline-block*/
 
-header div {
+header div,
+.footer.sticky-footer div {
     display: inline-block;
 }
 
@@ -24,13 +25,13 @@ header div {
 
 /*     Float items in the left part of the nav to the left */
 
-nav div:nth-child(1) {
+nav div:nth-child(1), .footer div:nth-child(1) {
     margin-left: 25px;
 }
 
 /*     Float items in the right part of the nav to the right */
 
-nav div:nth-child(2) {
+nav div:nth-child(2), .footer div:nth-child(2) {
     margin-right: 40px;
     float: right;
 }
@@ -58,14 +59,14 @@ div ul li {
 
 /*    Set the margins and padding for the li elements of the left part of the nav */
 
-nav div:nth-child(2) ul li {
+nav div:nth-child(2) ul li, .footer div:nth-child(2) ul li {
     margin-left: 10px;
     padding: 10px;
 }
 
 /*    Set the margins and padding for the li elements of the right part of the nav */
 
-nav div:nth-child(1) ul li {
+nav div:nth-child(1) ul li, .footer div:nth-child(1) ul li {
     margin-right: 10px;
     padding: 10px;
 }
@@ -184,7 +185,10 @@ a:hover {
 .footer {
     right: 0;
     left: 0;
-    padding: 1rem;
+    /* padding: 1rem; */
     background-color: #efefef;
-    text-align: center;
+}
+
+.footer ul {
+    padding: 0;
 }
