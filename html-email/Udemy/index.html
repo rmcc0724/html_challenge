@@ -378,6 +378,11 @@
             text-decoration: none;
         }
 
+        #templatePreheader td.preheaderContent:nth-child(2) {
+            text-align: right;
+            vertical-align: middle;
+        }
+
         /*////// MOBILE STYLES //////*/
 
         /*
@@ -400,9 +405,10 @@
             table[id="introductionBlock"],
             table[id="callToActionBlock"],
             table[id="eventBlock"],
-            table[id="merchandiseBlock"],            
+            table[id="merchandiseBlock"],
             table[id="columnBlock"],
-            table[id="footerBlock"] {
+            table[id="footerBlock"],
+            table[id="templatePreheader"] {
                 max-width: 480px !important;
                 width: 100% !important;
             }
@@ -477,6 +483,153 @@
                 display: block;
             }
 
+            /* ========== Header Styles ========== */
+            /**
+			* @tab Header
+			* @section preheader style
+			* @tip Set the background color and bottom border for your email's preheader area.
+			* @theme header
+			*/
+            /* ======== Header Styles ======== */
+            /*#templatePreheader {*/
+            /*    display: none !important;*/
+            /*}*/
+            /* Hide the template preheader to save space */
+            /**
+				* @tab Mobile Styles
+				* @section header image
+				* @tip Make the main header image fluid for portrait or landscape view adaptability, and set the image's original width as the max-width. If a fluid setting doesn't work, set the image width to half its original size instead.
+				*/
+            #headerImage {
+                height: auto !important;
+                /*@editable*/
+                max-width: 600px !important;
+                /*@editable*/
+                width: 100% !important;
+            }
+
+            /**
+				* @tab Mobile Styles
+				* @section header text
+				* @tip Make the header content text larger in size for better readability on small screens. We recommend a font size of at least 16px.
+				*/
+            .headerContent {
+                /*@editable*/
+                font-size: 20px !important;
+                /*@editable*/
+                line-height: 125% !important;
+            }
+
+            #templatePreheader {
+                /*@editable*/
+                background-color: #F4F4F4;
+                /*@editable*/
+                border-bottom: 1px solid #CCCCCC;
+            }
+
+            /**
+			* @tab Header
+			* @section preheader text
+			* @tip Set the styling for your email's preheader text. Choose a size and color that is easy to read.
+			*/
+            .preheaderContent {
+                /*@editable*/
+                color: #808080;
+                /*@editable*/
+                font-family: Helvetica;
+                /*@editable*/
+                font-size: 10px;
+                /*@editable*/
+                line-height: 125%;
+                /*@editable*/
+                text-align: left;
+            }
+
+            /**
+			* @tab Header
+			* @section preheader link
+			* @tip Set the styling for your email's preheader links. Choose a color that helps them stand out from your text.
+			*/
+            .preheaderContent a:link,
+            .preheaderContent a:visited,
+            /* Yahoo! Mail Override */
+            .preheaderContent a .yshortcuts/* Yahoo! Mail Override */
+                {
+                /*@editable*/
+                color: #606060;
+                /*@editable*/
+                font-weight: normal;
+                /*@editable*/
+                text-decoration: underline;
+            }
+
+            /**
+			* @tab Header
+			* @section header style
+			* @tip Set the background color and borders for your email's header area.
+			* @theme header
+			*/
+            #templateHeader {
+                /*@editable*/
+                background-color: #F4F4F4;
+                /*@editable*/
+                border-top: 1px solid #FFFFFF;
+                /*@editable*/
+                border-bottom: 1px solid #CCCCCC;
+            }
+
+            /**
+			* @tab Header
+			* @section header text
+			* @tip Set the styling for your email's header text. Choose a size and color that is easy to read.
+			*/
+            .headerContent {
+                /*@editable*/
+                color: #505050;
+                /*@editable*/
+                font-family: Helvetica;
+                /*@editable*/
+                font-size: 20px;
+                /*@editable*/
+                font-weight: bold;
+                /*@editable*/
+                line-height: 100%;
+                /*@editable*/
+                padding-top: 0;
+                /*@editable*/
+                padding-right: 0;
+                /*@editable*/
+                padding-bottom: 0;
+                /*@editable*/
+                padding-left: 0;
+                /*@editable*/
+                text-align: left;
+                /*@editable*/
+                vertical-align: middle;
+            }
+
+            /**
+			* @tab Header
+			* @section header link
+			* @tip Set the styling for your email's header links. Choose a color that helps them stand out from your text.
+			*/
+            .headerContent a:link,
+            .headerContent a:visited,
+            /* Yahoo! Mail Override */
+            .headerContent a .yshortcuts/* Yahoo! Mail Override */
+                {
+                /*@editable*/
+                color: #EB4102;
+                /*@editable*/
+                font-weight: normal;
+                /*@editable*/
+                text-decoration: underline;
+            }
+
+            #headerImage {
+                height: auto;
+                max-width: 600px;
+            }
 
             /* ======== Column Styles ======== */
             .templateColumnContainer {
@@ -544,6 +697,24 @@
                 <td align="center" valign="top" id="bodyCell">
                     <!-- // BEGIN EMAIL -->
                     <table border="0" cellpadding="0" cellspacing="0" width="100%" id="emailContainer">
+                        <tr>
+                            <td align="center" valign="top">
+                                <!-- BEGIN PREHEADER // -->
+                                <table border="0" cellpadding="0" cellspacing="0" width="520" id="templatePreheader">
+                                    <tr>
+                                        <td valign="top" class="preheaderContent" style="padding-top:10px; padding-right:20px; padding-bottom:10px; padding-left:20px;" mc:edit="preheader_content00" width="50%">
+                                            <img class="navImage" src="https://gallery.mailchimp.com/dea4455e7540b32418b789ef1/images/889de538-01cd-4175-a98a-caa56dc261e7.png">
+                                        </td>
+                                        <!-- *|IFNOT:ARCHIVE_PAGE|* -->
+                                        <td valign="top" width="50%" class="preheaderContent" style="padding-top:10px; padding-right:20px; padding-bottom:10px; padding-left:0;" mc:edit="preheader_content01" text-align="right">
+                                            My Courses | Wishlist
+                                        </td>
+                                        <!-- *|END:IF|* -->
+                                    </tr>
+                                </table>
+                                <!-- // END PREHEADER -->
+                            </td>
+                        </tr>
                         <tr>
                             <td align="center" valign="top" id="heroImageContainer">
 
