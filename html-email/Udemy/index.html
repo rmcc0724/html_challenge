@@ -490,11 +490,6 @@
 			* @tip Set the background color and bottom border for your email's preheader area.
 			* @theme header
 			*/
-            /* ======== Header Styles ======== */
-            /*#templatePreheader {*/
-            /*    display: none !important;*/
-            /*}*/
-            /* Hide the template preheader to save space */
             /**
 				* @tab Mobile Styles
 				* @section header image
@@ -686,6 +681,15 @@
                 line-height: 125% !important;
             }
 
+            td.preheaderContent.left {
+                width: 100%;
+                text-align: center;
+            }
+
+            td.preheaderContent.right {
+                display: none;
+            }
+
         }
     </style>
 </head>
@@ -702,11 +706,11 @@
                                 <!-- BEGIN PREHEADER // -->
                                 <table border="0" cellpadding="0" cellspacing="0" width="520" id="templatePreheader">
                                     <tr>
-                                        <td valign="top" class="preheaderContent" style="padding-top:10px; padding-right:20px; padding-bottom:10px; padding-left:20px;" mc:edit="preheader_content00" width="50%">
-                                            <img class="navImage" src="https://gallery.mailchimp.com/dea4455e7540b32418b789ef1/images/889de538-01cd-4175-a98a-caa56dc261e7.png">
+                                        <td valign="top" class="preheaderContent left" style="padding-top:10px; padding-right:20px; padding-bottom:10px; padding-left:20px;" mc:edit="preheader_content00" width="50%">
+                                            <img width='125' class="navImage" src="https://gallery.mailchimp.com/dea4455e7540b32418b789ef1/images/889de538-01cd-4175-a98a-caa56dc261e7.png">
                                         </td>
                                         <!-- *|IFNOT:ARCHIVE_PAGE|* -->
-                                        <td valign="top" width="50%" class="preheaderContent" style="padding-top:10px; padding-right:20px; padding-bottom:10px; padding-left:0;" mc:edit="preheader_content01" text-align="right">
+                                        <td valign="top" width="50%" class="preheaderContent right" style="padding-top:10px; padding-right:20px; padding-bottom:10px; padding-left:0;" mc:edit="preheader_content01" text-align="right">
                                             My Courses | Wishlist
                                         </td>
                                         <!-- *|END:IF|* -->
