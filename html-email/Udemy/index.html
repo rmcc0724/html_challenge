@@ -171,7 +171,7 @@
 
         body,
         #bodyTable {
-            background-color: #424145;
+            background-color: #f0f0f0;
         }
 
         #emailContainer {
@@ -383,6 +383,23 @@
             vertical-align: middle;
         }
 
+        td.head_col {
+            background-color: #F0F0F0;
+        }
+
+        td.col-head h3 {
+            text-align: center;
+        }
+
+        td.templateColumnContainer {
+            padding-top: 0 !important;
+        }
+
+        td.col-head {
+            padding-top: 20px;
+        }
+
+
         /*////// MOBILE STYLES //////*/
 
         /*
@@ -482,6 +499,7 @@
             td[class="footerContent"] a {
                 display: block;
             }
+
 
             /* ========== Header Styles ========== */
             /**
@@ -702,7 +720,7 @@
                     <!-- // BEGIN EMAIL -->
                     <table border="0" cellpadding="0" cellspacing="0" width="100%" id="emailContainer">
                         <tr>
-                            <td align="center" valign="top">
+                            <td align="center" valign="top" class="head_col">
                                 <!-- BEGIN PREHEADER // -->
                                 <table border="0" cellpadding="0" cellspacing="0" width="520" id="templatePreheader">
                                     <tr>
@@ -717,15 +735,6 @@
                                     </tr>
                                 </table>
                                 <!-- // END PREHEADER -->
-                            </td>
-                        </tr>
-                        <tr>
-                            <td align="center" valign="top" id="heroImageContainer">
-
-                                <!-- // BEGIN HERO BLOCK -->
-                                <img src="https://gallery.mailchimp.com/dea4455e7540b32418b789ef1/images/c3bca2b5-b11f-4f3a-bf4c-c06a422f6eae.png" alt="Hero" width="520" id="heroImage" valign="top" />
-                                <!-- END HERO BLOCK // -->
-
                             </td>
                         </tr>
                         <tr>
@@ -755,12 +764,27 @@
                             </td>
                         </tr>
                         <tr>
+                            <td align="center" valign="top" id="heroImageContainer">
+
+                                <!-- // BEGIN HERO BLOCK -->
+                                <img src="https://gallery.mailchimp.com/dea4455e7540b32418b789ef1/images/c3bca2b5-b11f-4f3a-bf4c-c06a422f6eae.png" alt="Hero" width="520" id="heroImage" valign="top" />
+                                <!-- END HERO BLOCK // -->
+
+                            </td>
+                        </tr>
+                        <tr>
                             <td align="center" valign="top" style="background-color:#edece6">
                                 <!--BEGIN COLUMNS // -->
+                                <tr>
+                                    <td align="center" valign="top" class="col-head">
+                                        <h4>See trending <strong>Web Development</strong> courses:</h4>
+                                    </td>
+                                </tr>
                                 <table border="0" cellpadding="0" cellspacing="0" width=520 id="columnBlock">
                                     <tr>
                                         <td align="center" valign="top" class="templateColumnContainer" style="padding-top:20px;">
                                             <table border="0" cellpadding="20" cellspacing="0" width="100%">
+
                                                 <tr>
                                                     <td class="leftColumnContent">
                                                         <img src="https://gallery.mailchimp.com/dea4455e7540b32418b789ef1/images/6617c817-b66c-4e43-a47a-0f5ec215fd27.jpg" style="max-width:160px;" class="columnImage" mc:label="left_column_image" mc:edit="left_column_image" />
