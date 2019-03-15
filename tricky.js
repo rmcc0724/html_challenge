@@ -1,0 +1,1 @@
+var A = { x:function() {console.log('x')} y:function() {console.log('y')} z:function() {console.log('z')} }
