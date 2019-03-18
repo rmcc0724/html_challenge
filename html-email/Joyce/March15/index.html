@@ -373,13 +373,14 @@
         .rightColumnContent {
             font-size: .9em;
             line-height: 1.4em;
-            padding: 0 13px;
+            padding: 0;
+            height: 65px;
         }
 
         .leftColumn,
         .centerColumn,
         .rightColumn {
-            padding: 0 8px;
+            padding: 0;
         }
 
         table#columnBlock {
@@ -389,6 +390,10 @@
         table#callToActionBlock {
             background-color: black;
             padding: 49px;
+        }
+
+        td.templateColumnContainer table {
+            margin: 10px;
         }
 
         /* Mobile Styles go here*/
@@ -409,6 +414,12 @@
 
             .callToActionContent {
                 padding-top: 30px;
+            }
+
+            .leftColumn,
+            .centerColumn,
+            .rightColumn {
+                padding: 0 2.5%;
             }
 
         }
@@ -752,7 +763,7 @@
 	*/
             .leftColumnContent {
                 /*@editable*/
-                font-size: 16px !important;
+                font-size: 25px !important;
                 /*@editable*/
                 line-height: 125% !important;
             }
@@ -767,7 +778,7 @@
 	*/
             .centerColumnContent {
                 /*@editable*/
-                font-size: 16px !important;
+                font-size: 25px!important;
                 /*@editable*/
                 line-height: 125% !important;
             }
@@ -782,7 +793,7 @@
 	*/
             .rightColumnContent {
                 /*@editable*/
-                font-size: 16px !important;
+                font-size: 25px !important;
                 /*@editable*/
                 line-height: 125% !important;
             }
@@ -800,6 +811,19 @@
         @media only screen and (max-width: 480px) {
             td.preheaderContent.right {
                 display: none;
+            }
+
+            .leftColumnContent,
+            .centerColumnContent,
+            .rightColumnContent {
+                padding: 10px;
+                height: 0;
+
+            }
+
+            td.rightColumn img,
+            td.centerColumn img {
+                margin-top: 25px;
             }
 
         }
@@ -889,6 +913,11 @@
                                                         Advanced JavaScript Concepts
                                                     </td>
                                                 </tr>
+                                                <tr>
+                                                    <td valign="top" class="leftColumnContent stars" mc:edit="left_column_content_stars">
+                                                        <img src="https://gallery.mailchimp.com/dea4455e7540b32418b789ef1/images/1dff3a9d-ba3d-409c-a342-617be57f4320.png" style="max-width:200px;" class="" />
+                                                    </td>
+                                                </tr>
                                             </table>
                                         </td>
                                         <td align="center" valign="top" class="templateColumnContainer" style="padding-top:20px;">
@@ -901,6 +930,11 @@
                                                 <tr>
                                                     <td valign="top" class="centerColumnContent" mc:edit="center_column_content">
                                                         React Node FullStack Social Network from Scratch to Deploy
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td valign="top" class="centerColumnContent stars" mc:edit="center_column_content_stars">
+                                                        <img src="https://gallery.mailchimp.com/dea4455e7540b32418b789ef1/images/1dff3a9d-ba3d-409c-a342-617be57f4320.png" style="max-width:200px;" class="" />
                                                     </td>
                                                 </tr>
                                             </table>
@@ -916,6 +950,12 @@
                                                     <td valign="top" class="rightColumnContent" mc:edit="right_column_content">
 
                                                         Gatsby JS: Build Static Sites with React WordPress and GraphQL.
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td valign="top" class="rightColumnContent stars" mc:edit="right_column_content_stars">
+                                                        <img src="https://gallery.mailchimp.com/dea4455e7540b32418b789ef1/images/1dff3a9d-ba3d-409c-a342-617be57f4320.png" style="max-width:200px;">
+
                                                     </td>
                                                 </tr>
                                             </table>
@@ -937,9 +977,6 @@
                                             <br>
                                             <br> Download our apps for Offline Course Taking
                                         </td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
                                     </tr>
                                 </table>
                                 <!-- END FOOTER BLOCK // -->
